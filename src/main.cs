@@ -2,24 +2,31 @@ class Program
 {
     static void Main()
     {
-        var commandList = new List<string>()
+        var validCommandList = new List<string>()
         {
-            "","echo","exit"
+            "echo","exit"
         };
         while (true)
         {
             Console.Write("$ ");
             var command = Console.ReadLine();
-            if (command == "exit 0")
+            if (string.IsNullOrWhiteSpace(command))
+                continue;
+            //区分为指令和参数两部分
+            var parts= command.Split(' ',2);
+            var cmd= parts[0];//取出指令部分
+            //取出参数部分j
+            var args = parts.Length > 1 ? parts[1] : "";
+            if (cmd == "exit" && args == "0")
                 break;
-            else if (command.StartsWith("echo"))
+            else if(cmd=="echo")
             {
-                Console.WriteLine(command.Replace("echo ", "") + Environment.NewLine);
-            }
-            if (!commandList.Contains(command))
+                Console.WriteLine(args+Environment.NewLine);
+            }else if(!validCommandList.Contains(cmd))
             {
-                Console.WriteLine($"{command}: command not found");
+                Console.WriteLine($"{cmd}: command not found");
             }
+            
         }
 
     }
