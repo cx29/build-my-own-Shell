@@ -12,7 +12,12 @@ class Program
             var command = Console.ReadLine();
             if (command == "exit 0")
                 break;
-            if (!commandList.Contains(command))
+            else if (command.StartsWith("echo"))
+            {
+                Console.WriteLine(command.Replace("echo ", "") + Environment.NewLine);
+            }
+            else
+                        if (!commandList.Contains(command))
             {
                 Console.WriteLine($"{command}: command not found");
             }
