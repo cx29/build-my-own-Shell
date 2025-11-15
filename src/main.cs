@@ -27,7 +27,7 @@ class Program
             }
             else if (cmd == "type"&&validCommandList.Contains(args))
             {
-                Console.WriteLine($"{cmd} is a shell builtin");
+                Console.WriteLine($"{args} is a shell builtin");
             }
             else if (!validCommandList.Contains(cmd))
             {
