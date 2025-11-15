@@ -4,7 +4,7 @@ class Program
     {
         var commandList = new List<string>()
         {
-
+            "","echo","exit"
         };
         while (true)
         {
@@ -16,8 +16,7 @@ class Program
             {
                 Console.WriteLine(command.Replace("echo ", "") + Environment.NewLine);
             }
-            else
-                        if (!commandList.Contains(command))
+            if (!commandList.Contains(command))
             {
                 Console.WriteLine($"{command}: command not found");
             }
