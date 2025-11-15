@@ -4,7 +4,7 @@ class Program
     {
         var validCommandList = new List<string>()
         {
-            "echo", "exit"
+            "echo", "exit", "type"
         };
         while (true)
         {
@@ -24,6 +24,10 @@ class Program
             if (cmd == "echo")
             {
                 Console.WriteLine(args);
+            }
+            else if (cmd == "type"&&validCommandList.Contains(args))
+            {
+                Console.WriteLine($"{cmd} is a shell builtin");
             }
             else if (!validCommandList.Contains(cmd))
             {
