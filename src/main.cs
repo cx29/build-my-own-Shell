@@ -8,7 +8,7 @@ class Program
         var commandList=new List<string>();
         if(!commandList.Contains(command))
         {
-            Console.WriteLine($"{command}:command not found");
+            Console.WriteLine($"{command}: command not found");
         }
     }
 }
