@@ -9,6 +9,8 @@ class Program
         while (true)
         {
             Console.Write("$ ");
+            //手动刷新缓冲区
+            Console.Out.Flush();
             var command = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(command))
                 continue;
