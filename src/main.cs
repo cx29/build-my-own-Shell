@@ -82,7 +82,7 @@ class Program
                 if (FindExecutableInPath(cmd) is { } executable)
                 {
                     Process.Start(executable, args);
-                    Console.WriteLine(Environment.NewLine);
+                    
                     return true;
                 }
                 else
