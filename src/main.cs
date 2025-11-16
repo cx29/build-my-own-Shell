@@ -81,7 +81,7 @@ class Program
                 //可以在环境变量中找到指令
                 if (FindExecutableInPath(cmd) is { } executable)
                 {
-                    var process = Process.Start(executable, args);
+                    var process = Process.Start(cmd, args);
                     process.WaitForExit();
                     return true;
                 }
