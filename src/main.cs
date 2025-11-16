@@ -69,7 +69,8 @@ class Program
                 var argList = args.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                 foreach (var arg in argList)
                 {
-                    Console.WriteLine(FindExecutableInPath(arg) is { } res ? $"{arg} is {res}" : $"{arg}: not found");
+                    var line = validCommandList.Contains(arg) ? $"{arg} is a shell builtin" : (FindExecutableInPath(arg) is { } res ? $"{arg} is {res}" : $"{arg}: not found");
+                    Console.WriteLine(line);
                 }
 
                 return true;
