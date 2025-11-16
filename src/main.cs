@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 class Program
@@ -76,7 +77,18 @@ class Program
                 return true;
             }
             default:
-                return false;
+            {
+                //可以在环境变量中找到指令
+                if (FindExecutableInPath(cmd) is { } executable)
+                {
+                    Process.Start(executable, args);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
     }
 
