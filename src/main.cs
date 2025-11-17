@@ -80,7 +80,6 @@ class Program
             {
                 var pwd = Directory.GetCurrentDirectory();
                 Console.WriteLine(pwd);
-                
                 return true;
             }
             default:
