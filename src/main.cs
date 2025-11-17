@@ -5,7 +5,7 @@ class Program
 {
     static readonly HashSet<string> validCommandList = new()
     {
-        "echo", "exit", "type"
+        "echo", "exit", "type", "pwd"
     };
 
     static void Main()
@@ -74,6 +74,12 @@ class Program
                     Console.WriteLine(line);
                 }
 
+                return true;
+            }
+            case "pwd":
+            {
+                var pwd = Directory.GetCurrentDirectory();
+                Console.WriteLine(pwd);
                 return true;
             }
             default:
