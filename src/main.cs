@@ -71,6 +71,7 @@ class Program
                 foreach (var arg in argList)
                 {
                     var line = validCommandList.Contains(arg) ? $"{arg} is a shell builtin" : (FindExecutableInPath(arg) is { } res ? $"{arg} is {res}" : $"{arg}: not found");
+                    
                     Console.WriteLine(line);
                 }
 
