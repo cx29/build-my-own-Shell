@@ -12,7 +12,7 @@ public class TypeCommand : IMyCommand
     {
         foreach (var cmd in args)
         {
-            var line = context.BuildInList.Contains(cmd) ? $"{cmd} is shell builtin" : func(cmd) is { } res ? $"{cmd} is {res}" : $"{cmd}: not found";
+            var line = context.BuildInList.Contains(cmd) ? $"{cmd} is a shell builtin" : func(cmd) is { } res ? $"{cmd} is {res}" : $"{cmd}: not found";
             Console.WriteLine(line);
         }
 
