@@ -126,22 +126,22 @@ public class Shell
                 return cmd;
         }
 
-        string[] winExts = new[] {".exe", ".cmd", ".bat"};
+        string[] winExts = new[] { ".exe", ".cmd", ".bat" };
 
         // 3. Search current directory first
         {
             var local = Path.Combine(Directory.GetCurrentDirectory(), cmd);
             if (File.Exists(local))
                 return local;
-
-#if WINDOWS
-            foreach (var ext in winExts)
+            if (IsWindows())
             {
-                var localExt = local + ext;
-                if (File.Exists(localExt))
-                    return localExt;
+                foreach (var ext in winExts)
+                {
+                    var localExt = local + ext;
+                    if (File.Exists(localExt))
+                        return localExt;
+                }
             }
-#endif
         }
 
         // 4. Search PATH
