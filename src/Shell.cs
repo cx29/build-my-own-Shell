@@ -139,13 +139,15 @@ public class Shell
             //如果是 win则需要拼接文件扩展符
             if (IsWindows())
             {
-                return winExts.Select(ext => Path.Combine(dir, cmd + ext)).FirstOrDefault(File.Exists);
+                var res=winExts.Select(ext => Path.Combine(dir, cmd + ext)).FirstOrDefault(File.Exists);
+                if (res != null) return res;
             }
 
             // 如果是类 unix 则需要判断是否可执行
             if (!IsUnix()) continue;
             var fullPath = Path.Combine(dir, cmd);
-            return (File.Exists(fullPath) && IsExecutableUnix(fullPath)) ? fullPath : null;
+            var resPath=(File.Exists(fullPath) && IsExecutableUnix(fullPath)) ? fullPath : null;
+            if (resPath != null) return resPath;
         }
 
         return null;
