@@ -30,6 +30,7 @@ public class Shell
         _registry.Register(new ExitCommand());
         _registry.Register(new TypeCommand());
         _registry.Register(new PwdCommand());
+        _registry.Register(new CdCommand());
 
         //获取所有内置指令名字
         _context.BuildInList.AddRange(_registry.GetBuildInCmdName());
