@@ -118,7 +118,7 @@ public class Shell
     private string? ResolveCommandPath(string cmd)
     {
         // 判断是否包含路径分隔符， 来区分是路径的指令还是加入环境变量或内建指令
-        if (cmd.Contains(Path.DirectorySeparatorChar) && cmd.Contains(Path.AltDirectorySeparatorChar))
+        if (cmd.Contains(Path.DirectorySeparatorChar) || cmd.Contains(Path.AltDirectorySeparatorChar))
         {
             //是路径指令则需要判断文件是否存在
             if (!File.Exists(cmd)) return null;
