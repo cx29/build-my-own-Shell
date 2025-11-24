@@ -87,19 +87,20 @@ public class Shell
             return;
         }
 
-        var processInfo = new ProcessStartInfo()
-        {
-            FileName = realCmd,
-            Arguments = string.Join(" ", args),
-            WorkingDirectory = _context.CurrentDir,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            UseShellExecute = false //启用捕获异常
-        };
+        // var processInfo = new ProcessStartInfo()
+        // {
+        //     FileName = realCmd,
+        //     Arguments = string.Join(" ", args),
+        //     WorkingDirectory = _context.CurrentDir,
+        //     RedirectStandardOutput = true,
+        //     RedirectStandardError = true,
+        //     UseShellExecute = false //启用捕获异常
+        // };
         try
         {
-            using var process = Process.Start(processInfo);
+            // using var process = Process.Start(processInfo);
 
+            var process = Process.Start(realCmd, string.Join(" ", args));
             await process.WaitForExitAsync();
             _context.EnvironmentVariables["_"] = cmd;
         }
