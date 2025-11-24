@@ -126,28 +126,51 @@ public class Shell
                 return cmd;
         }
 
-        string[] winExts = [".exe", ".cmd", ".bat"];
-        //获取环境变量中的所有路径
-        var paths = _context.EnvironmentVariables["PATH"].Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
+        string[] winExts = new[] {".exe", ".cmd", ".bat"};
 
-        // 遍历环境变量
+        // 3. Search current directory first
+        {
+            var local = Path.Combine(Directory.GetCurrentDirectory(), cmd);
+            if (File.Exists(local))
+                return local;
+
+#if WINDOWS
+            foreach (var ext in winExts)
+            {
+                var localExt = local + ext;
+                if (File.Exists(localExt))
+                    return localExt;
+            }
+#endif
+        }
+
+        // 4. Search PATH
+        if (!_context.EnvironmentVariables.TryGetValue("PATH", out var pathVar))
+            return null;
+
+        var paths = pathVar.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
+
         foreach (var dir in paths)
         {
-            // 判断环境变量是否存在
             if (!Directory.Exists(dir))
                 continue;
-            //如果是 win则需要拼接文件扩展符
+
             if (IsWindows())
             {
-                var res=winExts.Select(ext => Path.Combine(dir, cmd + ext)).FirstOrDefault(File.Exists);
-                if (res != null) return res;
+                foreach (var ext in winExts)
+                {
+                    var candidate = Path.Combine(dir, cmd + ext);
+                    if (File.Exists(candidate))
+                        return candidate;
+                }
             }
 
-            // 如果是类 unix 则需要判断是否可执行
-            if (!IsUnix()) continue;
-            var fullPath = Path.Combine(dir, cmd);
-            var resPath=(File.Exists(fullPath) && IsExecutableUnix(fullPath)) ? fullPath : null;
-            if (resPath != null) return resPath;
+            if (IsUnix())
+            {
+                var fullPath = Path.Combine(dir, cmd);
+                if (File.Exists(fullPath) && IsExecutableUnix(fullPath))
+                    return fullPath;
+            }
         }
 
         return null;
