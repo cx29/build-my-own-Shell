@@ -100,13 +100,13 @@ public class Shell
         {
             // using var process = Process.Start(processInfo);
 
-            var process = Process.Start(realCmd, string.Join(" ", args));
+            var process = Process.Start(cmd, string.Join(" ", args));
             await process.WaitForExitAsync();
             _context.EnvironmentVariables["_"] = cmd;
         }
         catch (Exception e)
         {
-            Console.WriteLine($"{cmd}: Command not found");
+            Console.WriteLine($"{cmd}: command not found");
         }
     }
 
