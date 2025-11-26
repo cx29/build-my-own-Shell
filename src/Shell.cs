@@ -128,26 +128,27 @@ public class Shell
 
         string[] winExts = new[] { ".exe", ".cmd", ".bat" };
 
-        // 3. Search current directory first
+        // 3. 在当前目录下查找是否有可执行文件
+        var local = Path.Combine(Directory.GetCurrentDirectory(), cmd);
+        if (File.Exists(local))
         {
-            var local = Path.Combine(Directory.GetCurrentDirectory(), cmd);
-            if (File.Exists(local))
-                return local;
-            if (IsWindows())
+            return local;
+        }
+        if (IsWindows())
+        {
+            foreach (var ext in winExts)
             {
-                foreach (var ext in winExts)
-                {
-                    var localExt = local + ext;
-                    if (File.Exists(localExt))
-                        return localExt;
-                }
+                var localExt = local + ext;
+                if (File.Exists(localExt))
+                    return localExt;
             }
         }
 
-        // 4. Search PATH
+        // 4. 获取环境变量，若环境变量为 0 则直接返回
         if (!_context.EnvironmentVariables.TryGetValue("PATH", out var pathVar))
             return null;
 
+        //按照分隔符进行分隔
         var paths = pathVar.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var dir in paths)
@@ -186,7 +187,7 @@ public class Shell
     /// 判断是否为类 unix 系统
     /// </summary>
     /// <returns></returns>
-    private bool IsUnix() => RuntimeInformation.IsOSPlatform(OSPlatform.OSX) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+    private bool IsUnix() => RuntimeInformation.IsOSPlatform(OSPlatform.OSX) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 
     /// <summary>
     ///  判断是否有可执行权限
