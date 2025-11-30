@@ -87,19 +87,8 @@ public class Shell
             return;
         }
 
-        // var processInfo = new ProcessStartInfo()
-        // {
-        //     FileName = realCmd,
-        //     Arguments = string.Join(" ", args),
-        //     WorkingDirectory = _context.CurrentDir,
-        //     RedirectStandardOutput = true,
-        //     RedirectStandardError = true,
-        //     UseShellExecute = false //启用捕获异常
-        // };
         try
         {
-            // using var process = Process.Start(processInfo);
-
             var process = Process.Start(cmd, string.Join(" ", args));
             await process.WaitForExitAsync();
             _context.EnvironmentVariables["_"] = cmd;
@@ -134,6 +123,7 @@ public class Shell
         {
             return local;
         }
+
         if (IsWindows())
         {
             foreach (var ext in winExts)
