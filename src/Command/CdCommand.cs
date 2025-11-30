@@ -15,7 +15,7 @@ public class CdCommand : IMyCommand
         if (args.Length < 1) return Task.FromResult(0);
         if (ResolvePath(args[0], context) is { } path)
         {
-            context.CurrentDir = path;
+            context.CurrentDir = path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         }
         else
         {
