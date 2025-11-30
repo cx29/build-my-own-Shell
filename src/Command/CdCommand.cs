@@ -27,8 +27,9 @@ public class CdCommand : IMyCommand
 
     private string? ResolvePath(string path, ShellContext context)
     {
+        if (!path.StartsWith(currDir) && !path.StartsWith(prevDir)) return Directory.Exists(path) ? path : null;
         //获取完整路径，直接判断是否存在
-        var fullPath = Path.GetFullPath(path);
+        var fullPath = Path.GetFullPath(path, context.CurrentDir);
         return Directory.Exists(fullPath) ? fullPath : null;
     }
 }
