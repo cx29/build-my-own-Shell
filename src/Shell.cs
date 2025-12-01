@@ -77,7 +77,7 @@ public class Shell
     /// </summary>
     /// <param name="cmd"></param>
     /// <param name="args"></param>
-    private async Task ExecuteExternalAsync(string cmd,List<string> args)
+    private async Task ExecuteExternalAsync(string cmd, List<string> args)
     {
         // 查找实际可执行指令
         var realCmd = ResolveCommandPath(cmd);
@@ -90,7 +90,19 @@ public class Shell
 
         try
         {
-            var process = Process.Start(cmd, string.Join(" ", args));
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = cmd,
+                RedirectStandardOutput = false,
+                RedirectStandardError = false,
+                UseShellExecute = false,
+            };
+            foreach (var arg in args)
+            {
+                startInfo.ArgumentList.Add(arg);
+            }
+
+            var process = Process.Start(startInfo);
             await process.WaitForExitAsync();
             _context.EnvironmentVariables["_"] = cmd;
         }
