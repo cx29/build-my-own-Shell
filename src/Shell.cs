@@ -60,7 +60,7 @@ public class Shell
         var parts = line.Split(' ', 2);
         var cmdName = parts[0];
         Tokenizer tokenizer = new();
-        var args = tokenizer.Tokenize(parts.Skip(1).ToString());
+        var args = tokenizer.Tokenize(parts.Skip(1).LastOrDefault());
 
         // 判断是否为内建指令
         if (_registry.TryGet(cmdName, out var command))
