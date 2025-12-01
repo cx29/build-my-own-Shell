@@ -19,8 +19,9 @@ public class Tokenizer
         buffer.Clear();
     }
 
-    public List<string> Tokenize(string input)
+    public List<string> Tokenize(string? input)
     {
+        if (input == null) return Tokens;
         foreach (var c in input)
         {
             state.HandleToken(this, c);
