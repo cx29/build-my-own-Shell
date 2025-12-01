@@ -13,5 +13,5 @@ public interface IMyCommand
     /// <param name="args"></param>
     /// <param name="context"></param>
     /// <returns></returns>
-    Task<int> ExecuteAsync(string[] args, ShellContext context, Func<string,string?> func);
+    Task<int> ExecuteAsync(List<string> args, ShellContext context, Func<string,string?> func);
 }

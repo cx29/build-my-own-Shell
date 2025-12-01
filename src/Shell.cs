@@ -57,9 +57,10 @@ public class Shell
     private async Task ExecuteLineAsync(string line)
     {
         // 解析指令
-        var parts = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        var parts = line.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
         var cmdName = parts[0];
-        var args = parts.Skip(1).ToArray();
+        Tokenizer tokenizer = new();
+        var args = tokenizer.Tokenize(parts[1]);
 
         // 判断是否为内建指令
         if (_registry.TryGet(cmdName, out var command))
@@ -76,7 +77,7 @@ public class Shell
     /// </summary>
     /// <param name="cmd"></param>
     /// <param name="args"></param>
-    private async Task ExecuteExternalAsync(string cmd, string[] args)
+    private async Task ExecuteExternalAsync(string cmd,List<string> args)
     {
         // 查找实际可执行指令
         var realCmd = ResolveCommandPath(cmd);

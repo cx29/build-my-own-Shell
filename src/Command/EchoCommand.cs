@@ -15,7 +15,7 @@ public class EchoCommand : IMyCommand
     /// <param name="context"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public Task<int> ExecuteAsync(string[] args, ShellContext context, Func<string, string?> func)
+    public Task<int> ExecuteAsync(List<string> args, ShellContext context, Func<string, string?> func)
     {
         Console.WriteLine(string.Join(' ', args));
         return Task.FromResult(0);

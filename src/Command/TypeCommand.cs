@@ -8,7 +8,7 @@ public class TypeCommand : IMyCommand
     public string Name => "type";
     public string Description => "Type Command";
 
-    public Task<int> ExecuteAsync(string[] args, ShellContext context, Func<string, string?> func)
+    public Task<int> ExecuteAsync(List<string> args, ShellContext context, Func<string, string?> func)
     {
         foreach (var cmd in args)
         {

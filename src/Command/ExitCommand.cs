@@ -8,9 +8,9 @@ public class ExitCommand : IMyCommand
     public string Name => "exit";
     public string Description => "exit";
 
-    public Task<int> ExecuteAsync(string[] args, ShellContext context, Func<string, string?> func)
+    public Task<int> ExecuteAsync(List<string> args, ShellContext context, Func<string, string?> func)
     {
-        if (args.Length == 0 || args[0] == "0")
+        if (args.Count== 0 || args[0] == "0")
         {
             context.ShouldExit = true;
         }

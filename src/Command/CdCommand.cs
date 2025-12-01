@@ -12,9 +12,9 @@ public class CdCommand : IMyCommand
     public string Name => "cd";
     public string Description => "to target directory";
 
-    public Task<int> ExecuteAsync(string[] args, ShellContext context, Func<string, string?> func)
+    public Task<int> ExecuteAsync(List<string> args, ShellContext context, Func<string, string?> func)
     {
-        if (args.Length < 1) return Task.FromResult(0);
+        if (args.Count< 1) return Task.FromResult(0);
         if (ResolvePath(args[0], context) is { } path)
         {
             context.CurrentDir = path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
