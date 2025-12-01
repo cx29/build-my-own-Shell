@@ -57,7 +57,7 @@ public class Shell
     private async Task ExecuteLineAsync(string line)
     {
         // 解析指令
-        var parts = line.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+        var parts = line.Split(' ', 2);
         var cmdName = parts[0];
         Tokenizer tokenizer = new();
         var args = tokenizer.Tokenize(parts[1]);
