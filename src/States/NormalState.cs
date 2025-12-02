@@ -14,6 +14,12 @@ public class NormalState : ITokenizerState
             return;
         }
 
+        if (c == '\"')
+        {
+            context.state = new DoubleQuotesState();
+            return;
+        }
+
         //如果碰到空格则结束当前 token 的记录
         if (char.IsWhiteSpace(c))
         {
