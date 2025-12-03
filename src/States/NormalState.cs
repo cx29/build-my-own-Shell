@@ -7,6 +7,11 @@ public class NormalState : ITokenizerState
 {
     public void HandleToken(Tokenizer context, char c)
     {
+        if (c == '\\')
+        {
+            context.state = new BackslashState();
+            return;
+        }
         //如果识别到单引号则切换为 quote 模式 
         if (c == '\'')
         {
