@@ -9,7 +9,7 @@ namespace src.States;
 /// </summary>
 public class BackslashState : ITokenizerState
 {
-    private readonly List<char> specialChars = ['\"', '\\', '$', 'n'];
+    private readonly List<char> specialChars = ['\"', '\\'];
 
     public void HandleToken(Tokenizer context, char c)
     {
