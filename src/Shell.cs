@@ -57,19 +57,19 @@ public class Shell
     private async Task ExecuteLineAsync(string line)
     {
         // 解析指令
-        var parts = line.Split(' ', 2);
-        var cmdName = parts[0];
         Tokenizer tokenizer = new();
-        var args = tokenizer.Tokenize(parts.Skip(1).LastOrDefault());
+        var tokens = tokenizer.Tokenize(line);
+        var cmd = tokens.First();
+        var args = tokens.Skip(1).ToList();
 
         // 判断是否为内建指令
-        if (_registry.TryGet(cmdName, out var command))
+        if (_registry.TryGet(cmd, out var command))
         {
             await command.ExecuteAsync(args, _context, ResolveCommandPath);
             return;
         }
 
-        await ExecuteExternalAsync(cmdName, args);
+        await ExecuteExternalAsync(cmd, args);
     }
 
     /// <summary>
