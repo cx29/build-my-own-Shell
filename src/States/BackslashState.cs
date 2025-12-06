@@ -15,7 +15,7 @@ public class BackslashState : ITokenizerState
     {
         if (context.GetLastState is DoubleQuotesState doubleQuotesState)
         {
-            if (specialChars.Contains(c))
+            if (!specialChars.Contains(c))
             {
                 context.Append('\\');
             }
